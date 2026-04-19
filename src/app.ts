@@ -1,10 +1,18 @@
 import express from "express";
+import cors from 'cors';
 import router from "./routes";
 
-const app = express();
+export function createApp(){
+    const app = express();
+    app.use(express.json())
+    app.use(cors());
 
-app.use(express.json());
-app.use("/api", router);
+    app.use("/api", router);
+    app.get("/", (req, res) => {
+        res.send("Api running.")
+    });
 
-
-export default app;
+    return app;
+    
+    
+}
